@@ -7,7 +7,7 @@ Menu, Tray, Icon, ampGreen.ico
 Menu, Tray, Tip, Html Code Converter
 Letters = 0¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿ
 OddLetters = 0ŒœŠšŸƒ–—‘’‚“”„†‡•…‰€™
-FixChars = ░▒▓■□▪
+FixChars = ░▒▓■□▪▫▬
 
 !c::
     cb := clipboardAll
@@ -15,15 +15,23 @@ FixChars = ░▒▓■□▪
     Send ^x
     clipwait, 1
     Selected = %clipboard%
-    clipboard := cb ;restore the clipboard's contents
+    StringGetPos, pos, Selected, %A_Tab%
+
+    clipboard =
+    clipboard = f`tf
+    ClipWait
+    StringReplace, clipboard, clipboard, f,,1
+    Sleep, 40
     
-    ; Fix control characters
+    ; Fix control/odd characters
     StringReplace, Selected, Selected, #, ░, 1
     StringReplace, Selected, Selected, !, ▒, 1
     StringReplace, Selected, Selected, ^, ▓, 1
     StringReplace, Selected, Selected, +, ■, 1
     StringReplace, Selected, Selected, {, □, 1
     StringReplace, Selected, Selected, }, ▪, 1
+    StringReplace, Selected, Selected, %A_Tab%, ▫, 1
+    StringReplace, Selected, Selected, %A_Space%, ▬, 1
     
     ; fixes new lines being doubled from clipboard
     StringReplace,Selected,Selected,`n,,1
@@ -50,9 +58,15 @@ FixChars = ░▒▓■□▪
                 Send {{}
             } else if (pos = 5){
                 Send {}}
+            } else if (pos = 6){
+                Send, ^v
+            } else if (pos = 7){
+                Send {Space}
             }
         }
     }
+    Sleep, 100
+    clipboard := cb ;restore the clipboard's contents
 Return
 
 Parsechar(c)
