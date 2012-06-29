@@ -18,10 +18,8 @@ FixChars = ░▒▓■□▪▫▬
     StringGetPos, pos, Selected, %A_Tab%
 
     clipboard =
-    clipboard = f`tf
+    clipboard := "`t"
     ClipWait
-    StringReplace, clipboard, clipboard, f,,1
-    Sleep, 40
     
     ; Fix control/odd characters
     StringReplace, Selected, Selected, #, ░, 1
@@ -65,7 +63,7 @@ FixChars = ░▒▓■□▪▫▬
             }
         }
     }
-    Sleep, 100
+    Sleep, 5000
     clipboard := cb ;restore the clipboard's contents
 Return
 
