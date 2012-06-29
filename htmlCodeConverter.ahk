@@ -9,6 +9,7 @@ Letters = 0¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂ�
 OddLetters = 0ŒœŠšŸƒ–—‘’‚“”„†‡•…‰€™
 FixChars = ░▒▓■□▪▫▬
 
+AutoTrim, Off
 !c::
     cb := clipboardAll
     clipboard = ;clear the clipboard
